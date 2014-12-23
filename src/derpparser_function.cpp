@@ -116,7 +116,7 @@ namespace ExPop {
         // execnodes. I'm going to go with the literal value approach for
         // now.
 
-        DerpObject *funcObject = new DerpObject(vm);
+        DerpObject *funcObject = vm->makeRawObject();
         funcObject->setFunction(functionExecNode, paramsList);
         funcObject->setConst(true);
 

@@ -5,21 +5,33 @@
 Avoid recalculating hashes.
 ** TODO Make pooledstring more complete, so it can do mostly everything that a std::string can do (maybe)
 ** TODO PooledMemory for EVERYTHING
-- Grep for everything that does a "new DerpObject" and swap it out
-  with a call to the VM's makeObject() function. That'll let us funnel
-  all the calls through one place. Good way to start, maybe.
 
-- For some things, we don't want a reference returned, so maybe a
-  makeObject() variant that just returns a pointer. Things like
-  DerpObjects that exist as part of DerpExecNode hierarchies, which
-  don't rely on refcounts for the GC. (These are created during
-  parsing.)
+*** TODO Implement pooled memory of some sort.
+Pre-allocate pages of space to stick new DerpObjects in. For most
+things, this should be the only allocation required.
+
+Exceptions being functions, strings, custom data, and tables. That's
+pretty much everything except ints and floats. But math and loop
+iterations with number indexes will be WAY faster.
+
+*** DONE Replace "new DerpObject(vm)" with "vm->makeObject()"
+Grep for everything that does a "new DerpObject" and swap it out with
+a call to the VM's makeObject() function. That'll let us funnel all
+the calls through one place. Good way to start, maybe.
+
+*** DONE Add makeRawObject()
+For some things, we don't want a reference returned, so maybe a
+makeObject() variant that just returns a pointer. Things like
+DerpObjects that exist as part of DerpExecNode hierarchies, which
+don't rely on refcounts for the GC. (These are created during
+parsing.)
 
 * For DerpScript security:
 ** DONE Add recursion limit with error
 ** TODO Add execution limit
 Just count down the number of eval() calls and error out when it runs
 out.
+** TODO Add variable limit for DerpContexts
 
 * For DerpScript future:
 ** TODO Add exceptions? We already have the return modes for errors and other

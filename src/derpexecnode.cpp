@@ -214,7 +214,7 @@ namespace ExPop {
 
             if(!children.size()) {
                 // No children? Just return a zero.
-                DerpObject::Ref newOb(new DerpObject(vm));
+                DerpObject::Ref newOb = vm->makeObject();
                 newOb->setInt(0);
                 return newOb;
             }
@@ -298,14 +298,14 @@ namespace ExPop {
 
         } else if(type == DERPEXEC_BREAK) {
 
-            DerpObject::Ref ret = DerpObject::Ref(new DerpObject(vm));
+            DerpObject::Ref ret = vm->makeObject();
             ret->setInt(0);
             *returnType = DERPRETURN_BREAK;
             return ret;
 
         } else if(type == DERPEXEC_CONTINUE) {
 
-            DerpObject::Ref ret = DerpObject::Ref(new DerpObject(vm));
+            DerpObject::Ref ret = vm->makeObject();
             ret->setInt(0);
             *returnType = DERPRETURN_CONTINUE;
             return ret;
@@ -442,7 +442,7 @@ namespace ExPop {
             }
 
             // Set it in the context.
-            DerpObject::Ref newOb(new DerpObject(vm));
+            DerpObject::Ref newOb = vm->makeObject();
             context->setVariable(*data->strVal, newOb);
             return context->getVariablePtr(*data->strVal);
 

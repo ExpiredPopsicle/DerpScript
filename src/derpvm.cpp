@@ -317,7 +317,11 @@ namespace ExPop {
     }
 
     DerpObject::Ref DerpVM::makeObject(void) {
-        return DerpObject::Ref(new DerpObject(this));
+        return DerpObject::Ref(makeRawObject());
+    }
+
+    DerpObject *DerpVM::makeRawObject(void) {
+        return new DerpObject(this);
     }
 
     static unsigned int higherPow2(unsigned int i) {

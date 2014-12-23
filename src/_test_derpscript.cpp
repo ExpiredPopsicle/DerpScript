@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
     DerpVM *vm = new DerpVM();
     {
         DerpContext *ctx = vm->getGlobalContext();
-        DerpObject::Ref testFuncOb(new DerpObject(vm));
+        DerpObject::Ref testFuncOb = vm->makeObject();
         testFuncOb->setExternalFunction(testExternalFunc);
         ctx->setVariable("testExternalFunc", testFuncOb);
         testFuncOb->setConst(true);

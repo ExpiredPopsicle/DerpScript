@@ -59,7 +59,7 @@ namespace ExPop {
             return NULL;
         }
 
-        DerpObject::Ref newOb(new DerpObject(vm));
+        DerpObject::Ref newOb = vm->makeObject();
 
         switch(type) {
 

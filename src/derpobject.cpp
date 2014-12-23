@@ -341,7 +341,7 @@ namespace ExPop {
 
     DerpObject *DerpObject::copy(void) {
 
-        DerpObject *ob = new DerpObject(vm);
+        DerpObject *ob = vm->makeRawObject();
         ob->set(this);
         return ob;
     }

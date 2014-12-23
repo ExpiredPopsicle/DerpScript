@@ -53,7 +53,7 @@ namespace ExPop {
         istringstream inStr(tokens[i]->str);
         innerError = false;
 
-        DerpObject *literalData = new DerpObject(vm);
+        DerpObject *literalData = vm->makeRawObject();
 
         switch(TOKEN_TYPE()) {
 

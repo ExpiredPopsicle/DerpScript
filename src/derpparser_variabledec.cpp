@@ -61,7 +61,7 @@ namespace ExPop {
             derpSafeFileName(tokens, i));
 
         ret->setType(DERPEXEC_VARIABLEDEC);
-        DerpObject *data = new DerpObject(vm);
+        DerpObject *data = vm->makeRawObject();
         data->setString(tokens[i]->str);
         ret->setData(data);
 

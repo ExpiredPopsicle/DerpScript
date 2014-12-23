@@ -81,7 +81,7 @@ namespace ExPop {
 
             // Not.
             case DERPEXEC_NOT: {
-                DerpObject::Ref newOb(new DerpObject(vm));
+                DerpObject::Ref newOb = vm->makeObject();
                 switch(obL->type) {
                     case DERPTYPE_INT:   newOb->setInt(!obL->intVal); return newOb;
                     case DERPTYPE_FLOAT: newOb->setInt(!obL->floatVal); return newOb;

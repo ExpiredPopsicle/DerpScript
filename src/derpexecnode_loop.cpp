@@ -91,7 +91,7 @@ namespace ExPop {
 
                 // Now actually check condition.
                 if(!condition->intVal) {
-                    ret = DerpObject::Ref(new DerpObject(vm));
+                    ret = vm->makeObject();
                     ret->setInt(0);
                     return ret;
                 }
@@ -160,7 +160,7 @@ namespace ExPop {
 
                 // Now actually check condition.
                 if(!condition->intVal) {
-                    ret = DerpObject::Ref(new DerpObject(vm));
+                    ret = vm->makeObject();
                     ret->setInt(0);
                     return ret;
                 }

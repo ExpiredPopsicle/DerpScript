@@ -87,6 +87,11 @@ namespace ExPop {
         /// it. The default value isn't valid for much of anything.
         DerpObject::Ref makeObject(void);
 
+        /// Make an object, but without any references and not owned
+        /// by any DerpObject::Ref. This must be either given to a
+        /// DerpObject::Ref or manually deleted!
+        DerpObject *makeRawObject(void);
+
         /// Get a pooled string reference to a filename.
         PooledString::Ref getFilenameRef(
             const std::string &fileName);
