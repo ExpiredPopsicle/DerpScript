@@ -1,0 +1,7 @@
+* DerpScript
+
+It's a scripting system! Looks kinda like C or Javascript. Kinda slow.
+
+Written by ExpiredPopsicle.
+
+

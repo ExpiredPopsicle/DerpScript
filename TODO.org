@@ -1,3 +1,6 @@
+* For any sane person to ever use DerpScript:
+** TODO Some documentation would be nice.
+
 * For DerpScript speed:
 ** TODO Add hashes to pooledstring class
 ** TODO Make variable lookups in DerpScript use hashtables
