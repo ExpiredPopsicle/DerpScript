@@ -134,6 +134,8 @@ namespace ExPop {
 
         if(type == DERPEXEC_VARLOOKUP) {
 
+            // TODO: Replace this with pooled strings.
+
             // If this made it through the parser as something other than
             // a string, we have a problem in the parser.
             assert(data->type == DERPTYPE_STRING);

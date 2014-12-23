@@ -87,6 +87,10 @@ namespace ExPop {
 
         DerpContext *parent;
 
+        // Some day, we should make this a hash table and speed up
+        // variable lookup by a lot. (Variable lookup is the second
+        // bottleneck after GC performance!) Also, make the key type
+        // PooledString!
         std::map<std::string, DerpObject::Ref> variables;
         std::map<std::string, bool> variablesProtected;
 

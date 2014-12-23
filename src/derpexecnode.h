@@ -189,6 +189,10 @@ namespace ExPop {
         // For literal data stuff.
         DerpObject *data;
 
+        // TODO: Variable lookup nodes could probably benefit from
+        // having a PooledString for the variable name instead of
+        // pointing to some DerpObject with a string value.
+
         unsigned int lineNumber;
         DerpExecNodeType type;
 
