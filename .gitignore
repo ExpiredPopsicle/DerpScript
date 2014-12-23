@@ -1,0 +1,7 @@
+derp
+*.o
+*.obj
+gmon.out
+callgrind.out.*
+
+
