@@ -23,7 +23,12 @@ testFunc("hurf", "blurf");
 // a();
 
 for(var i = 0; i < 1000000; i++) {
+// for(var i = 0; i < 1000; i++) {
     // out(string(i) + "\n");
+
+    if((int(i) / 1000) * 1000 == int(i)) {
+        out(i, "\n");
+    }
 }
 
 

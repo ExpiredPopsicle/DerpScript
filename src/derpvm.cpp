@@ -48,7 +48,7 @@ namespace ExPop {
 
   #define GARBAGECOLLECT_MIN_THRESHOLD 2048
 
-    DerpVM::DerpVM(void) : globalContext(&internalContext), internalContext() {
+    DerpVM::DerpVM(void) : globalContext(&internalContext), internalContext(this) {
         lastGCPass = 0;
         objectCountGcThreshold = GARBAGECOLLECT_MIN_THRESHOLD;
 
@@ -214,18 +214,22 @@ namespace ExPop {
 
         // Clean out anything that didn't make the cut.
         for(unsigned int i = 0; i < gcObjects.size(); i++) {
-            if(gcObjects[i]->lastGCPass != lastGCPass) {
 
-                // Didn't get hit on the last garbage collection pass.
-                // Add it to the list of stuff to clean up.
-                obsToKill.push_back(gcObjects[i]);
+            if(gcObjects[i]->getGarbageCollectible()) {
 
-                if(gcObjects[i]->externalRefCount == 1) {
+                if(gcObjects[i]->lastGCPass != lastGCPass) {
 
-                    // This object will have to be manually deleted by
-                    // us because the only reference it has is the
-                    // fake one the VM adds.
-                    obsToDelete.push_back(gcObjects[i]);
+                    // Didn't get hit on the last garbage collection pass.
+                    // Add it to the list of stuff to clean up.
+                    obsToKill.push_back(gcObjects[i]);
+
+                    if(gcObjects[i]->externalRefCount == 1) {
+
+                        // This object will have to be manually deleted by
+                        // us because the only reference it has is the
+                        // fake one the VM adds.
+                        obsToDelete.push_back(gcObjects[i]);
+                    }
                 }
             }
         }
@@ -350,6 +354,10 @@ namespace ExPop {
 
     PooledString::Ref DerpVM::getFilenameRef(const std::string &fileName) {
         return filenamePool.getOrAdd(fileName);
+    }
+
+    PooledString::Ref DerpVM::getVariablenameRef(const std::string &variablename) {
+        return variablePool.getOrAdd(variablename);
     }
 
     unsigned int DerpVM::getNumObjects(void) {

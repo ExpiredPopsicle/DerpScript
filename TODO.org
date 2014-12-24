@@ -1,5 +1,7 @@
 * For any sane person to ever use DerpScript:
 ** TODO Some documentation would be nice.
+** TODO Pick a license and stick with it.
+** TODO Update that bigass block of text at the start of the source files.
 
 * For DerpScript speed:
 ** TODO Add hashes to pooledstring class

@@ -95,8 +95,10 @@ namespace ExPop {
         unsigned int lineNumber) {
 
         lastLineNumber = lineNumber;
-        lastFileName = fileName;
-        lastFileName_direct = "";
+        lastFileName   = fileName;
+
+        if(lastFileName_direct.size())
+            lastFileName_direct = "";
     }
 
     void DerpErrorState::setFileAndLineDirect(

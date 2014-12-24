@@ -55,6 +55,7 @@ namespace ExPop {
         type = DERPTYPE_NONE;
         externalRefCount = 0;
         lastGCPass = 0;
+        garbageCollectible = true;
 
         // Must be set to NULL for registerObject to work.
         this->vm = NULL;
@@ -520,8 +521,12 @@ namespace ExPop {
 
             // FIXME: This won't work with functions! Nothing will hold a
             // reference to any literal values.
-            if(!ob->externalRefCount) {
-                assert(!ob->vm);
+
+            // Account for VM itself owning a reference.
+            if(ob->externalRefCount <= 1 && ob->getGarbageCollectible()) {
+                assert(
+                    (!ob->vm) ||
+                    (ob->vm && ob->externalRefCount == 1));
                 delete ob;
             }
         }
@@ -603,6 +608,14 @@ namespace ExPop {
 
     DerpBasicType DerpObject::getType(void) const {
         return type;
+    }
+
+    void DerpObject::setGarbageCollectible(bool garbageCollectible) {
+        this->garbageCollectible = garbageCollectible;
+    }
+
+    bool DerpObject::getGarbageCollectible(void) const {
+        return garbageCollectible;
     }
 
     DerpObject::Ref DerpObject::evalFunction(

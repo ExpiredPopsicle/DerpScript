@@ -53,7 +53,7 @@ namespace ExPop {
         istringstream inStr(tokens[i]->str);
         innerError = false;
 
-        DerpObject *literalData = vm->makeRawObject();
+        DerpObject *literalData = NULL;
 
         switch(TOKEN_TYPE()) {
 
@@ -62,6 +62,7 @@ namespace ExPop {
                 // Literal integer.
                 int intVal;
                 inStr >> intVal;
+                literalData = vm->makeRawObject();
                 literalData->setInt(isNegative ? -intVal : intVal);
 
             } break;
@@ -71,6 +72,7 @@ namespace ExPop {
                 // Literal float.
                 float floatVal;
                 inStr >> floatVal;
+                literalData = vm->makeRawObject();
                 literalData->setFloat(isNegative ? -floatVal : floatVal);
 
             } break;
@@ -78,6 +80,7 @@ namespace ExPop {
             case DERPTOKEN_STRING: {
 
                 // Literal string.
+                literalData = vm->makeRawObject();
                 literalData->setString(tokens[i]->str);
 
             } break;
@@ -91,9 +94,10 @@ namespace ExPop {
                     derpSafeFileName(tokens, i));
 
                 ret->setType(DERPEXEC_VARLOOKUP);
-                literalData->setString(tokens[i]->str);
-                literalData->setConst(true);
-                ret->setData(literalData);
+
+                ret->setVariableName(
+                    vm->getVariablenameRef(tokens[i]->str));
+
                 i++;
 
             } break;
@@ -121,6 +125,14 @@ namespace ExPop {
         }
 
         if(!ret) {
+
+            // If we've made it here, we need to construct a new
+            // DerpExecNode for the literal value. And we MUST have
+            // decided what the literalData is.
+            assert(literalData);
+
+            literalData->setGarbageCollectible(false);
+
             ret = new DerpExecNode(
                 vm,
                 derpSafeLineNumber(tokens, i),

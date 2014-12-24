@@ -31,14 +31,19 @@
 
 #include "derpcontext.h"
 
+#include <cassert>
+
 namespace ExPop {
 
-    DerpContext::DerpContext(void) {
+    DerpContext::DerpContext(DerpVM *vm) {
         parent = NULL;
+        this->vm = vm;
     }
 
     DerpContext::DerpContext(DerpContext *parent) {
+        assert(parent);
         this->parent = parent;
+        this->vm = parent->vm;
     }
 
     void DerpContext::setVariable(const std::string &name, DerpObject::Ref data) {
@@ -48,7 +53,6 @@ namespace ExPop {
 
         variables[name] = data;
     }
-
 
     DerpObject::Ref DerpContext::getVariable(const std::string &name) {
 

@@ -174,6 +174,15 @@ namespace ExPop {
         /// Get the type of this DerpObject.
         DerpBasicType getType(void) const;
 
+        /// Set whether or not this can be garbage collected. Gotchas:
+        /// Don't try to delete this on your own. Just set it back to
+        /// garbage collectible when you're done with it, unless you
+        /// can somehow guarantee that nothing else refers to it!
+        void setGarbageCollectible(bool garbageCollectible);
+
+        /// Get garbage collectible status.
+        bool getGarbageCollectible(void) const;
+
         /// Execute a function object. parameters may be NULL or an
         /// empty std::vector<DerpObject::Ref>to indicate no
         /// parameters. ctx may be NULL to just use the VM's global
@@ -306,6 +315,7 @@ namespace ExPop {
 
         bool isConst;
         bool isCopyable;
+        bool garbageCollectible;
 
         friend class DerpVM;
         friend class DerpObject::Ref;

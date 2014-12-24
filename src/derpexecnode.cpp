@@ -54,6 +54,10 @@ namespace ExPop {
         for(unsigned int i = 0; i < children.size(); i++) {
             delete children[i];
         }
+
+        if(data) {
+            data->setGarbageCollectible(true);
+        }
     }
 
     DerpObject::Ref DerpExecNode::eval(
@@ -138,9 +142,8 @@ namespace ExPop {
 
             // If this made it through the parser as something other than
             // a string, we have a problem in the parser.
-            assert(data->type == DERPTYPE_STRING);
 
-            DerpObject::Ref foundOb = context->getVariable(*data->strVal);
+            DerpObject::Ref foundOb = context->getVariable(variableLookupName);
 
             if(foundOb.getPtr()) {
                 return foundOb;
@@ -403,7 +406,7 @@ namespace ExPop {
                 return NULL;
             }
 
-            if(context->getVariableProtected(*data->strVal)) {
+            if(context->getVariableProtected(variableLookupName)) {
                 FLAG_ERROR(
                     derpSprintf(
                         "Variable \"%s\" is protected and not valid for reference lookup.",
@@ -412,7 +415,7 @@ namespace ExPop {
             }
 
             // Do the lookup.
-            DerpObject::Ref *foundOb = context->getVariablePtr(*data->strVal);
+            DerpObject::Ref *foundOb = context->getVariablePtr(variableLookupName);
             if(foundOb) {
                 return foundOb;
             }
@@ -444,7 +447,7 @@ namespace ExPop {
             // Set it in the context.
             DerpObject::Ref newOb = vm->makeObject();
             context->setVariable(*data->strVal, newOb);
-            return context->getVariablePtr(*data->strVal);
+            return context->getVariablePtr(variableLookupName);
 
         } else if(type == DERPEXEC_INDEX) {
 
@@ -532,6 +535,8 @@ namespace ExPop {
             ret->data = data->copy();
         }
 
+        ret->variableLookupName = variableLookupName;
+
         return ret;
     }
 
@@ -566,11 +571,31 @@ namespace ExPop {
     }
 
     void DerpExecNode::setData(DerpObject *data) {
+
+        // Release un-collectible status from the old data.
+        if(data) {
+            data->setGarbageCollectible(true);
+        }
+
+        // Take over the new data. Make sure nothing else has an
+        // exclusive ownership of it.
         this->data = data;
+        assert(data->getGarbageCollectible() == true);
+        data->setGarbageCollectible(false);
     }
 
     DerpObject *DerpExecNode::getData(void) {
         return data;
+    }
+
+    void DerpExecNode::setVariableName(const PooledString::Ref &varname) {
+        assert(type == DERPEXEC_VARIABLEDEC || type == DERPEXEC_VARLOOKUP);
+        this->variableLookupName = varname;
+    }
+
+    PooledString::Ref DerpExecNode::getVariableName(void) const {
+        assert(type == DERPEXEC_VARIABLEDEC || type == DERPEXEC_VARLOOKUP);
+        return variableLookupName;
     }
 
     PooledString::Ref DerpExecNode::getFileNameRef(void) const {

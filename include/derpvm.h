@@ -96,6 +96,10 @@ namespace ExPop {
         PooledString::Ref getFilenameRef(
             const std::string &fileName);
 
+        /// Get a pooled string reference for a variable name.
+        PooledString::Ref getVariablenameRef(
+            const std::string &variablename);
+
         /// Get the number of objects referring to a certain piece of
         /// user data.
         unsigned int getNumCustomDataRefs(DerpObject::CustomData *customData);
@@ -169,6 +173,9 @@ namespace ExPop {
         // the filename attached to every single execution node
         // without using tons of memory.
         StringPool filenamePool;
+
+        // String pool just for variable names.
+        StringPool variablePool;
 
         // Debugging feature. Just keeps track of the highest object
         // count we've had.

@@ -184,6 +184,15 @@ namespace ExPop {
         /// Get the literal data.
         DerpObject *getData(void);
 
+        /// Set and get pooled string variable name for
+        /// DERPEXEC_VARIABLEDEC and DERPEXEC_VARLOOKUP.
+        void setVariableName(const PooledString::Ref &varname);
+        PooledString::Ref getVariableName(void) const;
+
+        // TODO: Convenience functions to get and set variable name
+        // with std::strings. Then go back and change the value parser
+        // to use it.
+
     private:
 
         // For literal data stuff.
@@ -192,6 +201,10 @@ namespace ExPop {
         // TODO: Variable lookup nodes could probably benefit from
         // having a PooledString for the variable name instead of
         // pointing to some DerpObject with a string value.
+
+        // TOOD: Rename this. It's for declarations in addition to
+        // lookups.
+        PooledString::Ref variableLookupName;
 
         unsigned int lineNumber;
         DerpExecNodeType type;

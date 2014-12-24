@@ -38,12 +38,14 @@
 
 namespace ExPop {
 
+    class DerpVM;
+
     /// DerpContext represents the current scope and is where the entire
     /// VM-side concept of variables lives.
     class DerpContext {
     public:
 
-        DerpContext(void);
+        DerpContext(DerpVM *vm);
         DerpContext(DerpContext *parent);
 
         /// Set (and create if needed) a variable to some DerpObject.
@@ -93,6 +95,8 @@ namespace ExPop {
         // PooledString!
         std::map<std::string, DerpObject::Ref> variables;
         std::map<std::string, bool> variablesProtected;
+
+        DerpVM *vm;
 
     };
 }
