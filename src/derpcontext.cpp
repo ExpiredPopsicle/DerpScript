@@ -29,9 +29,11 @@
 //
 // -------------------------- END HEADER -------------------------------------
 
+#include "derpvm.h"
 #include "derpcontext.h"
 
 #include <cassert>
+#include <iostream>
 
 namespace ExPop {
 
@@ -133,5 +135,31 @@ namespace ExPop {
             parent->getVariableNames(out);
         }
     }
+
+    void DerpContext::setVariable(const std::string &name, DerpObject::Ref data)
+    {
+        setVariable(vm->getVariablenameRef(name), data);
+    }
+
+    void DerpContext::unsetVariable(const std::string &name)
+    {
+        unsetVariable(vm->getVariablenameRef(name));
+    }
+
+    DerpObject::Ref DerpContext::getVariable(const std::string &name)
+    {
+        return getVariable(vm->getVariablenameRef(name));
+    }
+
+    void DerpContext::setVariableProtected(const std::string &name, bool refProtected)
+    {
+        setVariableProtected(vm->getVariablenameRef(name), refProtected);
+    }
+
+    bool DerpContext::getVariableProtected(const std::string &name)
+    {
+        return getVariableProtected(vm->getVariablenameRef(name));
+    }
+
 }
 

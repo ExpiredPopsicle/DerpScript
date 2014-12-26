@@ -32,6 +32,7 @@
 // This file can serve as an example of the DerpScript API. It should
 // be pretty simple.
 
+#include <cassert>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -113,20 +114,19 @@ void runREPL(DerpVM &vm) {
 
 void initVM(DerpVM &vm)
 {
-
     // Make a couple of callback functions, and set them as global
     // variables.
 
     DerpObject::Ref inFuncOb = vm.makeObject();
     inFuncOb->setExternalFunction(inFunc);
     vm.getGlobalContext()->setVariable(
-        vm.getVariablenameRef("in"), // FIXME: Make it so we don't have to get reference explicitly.
+        "in",
         inFuncOb);
 
     DerpObject::Ref outFuncOb = vm.makeObject();
     outFuncOb->setExternalFunction(outFunc);
     vm.getGlobalContext()->setVariable(
-        vm.getVariablenameRef("out"), // FIXME: Make it so we don't have to get reference explicitly.
+        "out",
         outFuncOb);
 
     // // If we're running untrusted code, set an execution limit so it

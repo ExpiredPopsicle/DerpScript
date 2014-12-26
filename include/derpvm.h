@@ -160,12 +160,17 @@ namespace ExPop {
 
         unsigned int lastGCPass;
 
-        // Global variables end up in this. Child of internalContext.
-        DerpContext globalContext;
+        // Esoteric C++ stuff: internalContext must come first in this
+        // class definition, because it also dictates the
+        // initialization order (and globalContext depends on
+        // internalContext).
 
         // Internal stuff ends up in this. Not accessible outside the
         // VM unless they get it through globalContext.
         DerpContext internalContext;
+
+        // Global variables end up in this. Child of internalContext.
+        DerpContext globalContext;
 
         unsigned int objectCountGcThreshold;
 

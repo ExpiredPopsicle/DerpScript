@@ -72,6 +72,14 @@ namespace ExPop {
         /// Get protected flag for a variable.
         bool getVariableProtected(const PooledString::Ref &name);
 
+        /// std::string wrappers for all the stuff above that uses
+        /// std::string.
+        void setVariable(const std::string &name, DerpObject::Ref data);
+        void unsetVariable(const std::string &name);
+        DerpObject::Ref getVariable(const std::string &name);
+        void setVariableProtected(const std::string &name, bool refProtected);
+        bool getVariableProtected(const std::string &name);
+
         /// Clear all variables and protected status.
         void clearAllVariables(void);
 
