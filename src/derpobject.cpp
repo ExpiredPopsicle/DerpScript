@@ -687,7 +687,9 @@ namespace ExPop {
             // Set function parameter variables in the context.
             for(unsigned int i = 0; i < numInputParams; i++) {
                 DerpObject::Ref param = (*params)[i];
-                ctx->setVariable((*functionData.paramNames)[i], param);
+                ctx->setVariable(
+                    vm->getVariablenameRef((*functionData.paramNames)[i]),
+                    param);
             }
         }
 

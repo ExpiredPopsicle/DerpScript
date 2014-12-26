@@ -294,8 +294,13 @@ namespace ExPop {
         funcOb = vm->makeObject();
         funcOb->setExternalFunction(func);
         funcOb->setConst(true);
-        context->setVariable(name, funcOb);
-        context->setVariableProtected(name, true);
+        PooledString::Ref varNameRef = vm->getVariablenameRef(name);
+        context->setVariable(
+            varNameRef,
+            funcOb);
+        context->setVariableProtected(
+            varNameRef,
+            true);
     }
 
 

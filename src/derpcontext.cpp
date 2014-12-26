@@ -35,7 +35,13 @@
 
 namespace ExPop {
 
-    DerpContext::DerpContext(DerpVM *vm) {
+    DerpContext::DerpContext(DerpVM *vm)
+      #if __cplusplus > 199711L && DERPSCRIPT_USE_UNORDERED_MAP
+        :
+        variables(10),
+        variablesProtected(10)
+      #endif
+    {
         parent = NULL;
         this->vm = vm;
     }
@@ -46,7 +52,7 @@ namespace ExPop {
         this->vm = parent->vm;
     }
 
-    void DerpContext::setVariable(const std::string &name, DerpObject::Ref data) {
+    void DerpContext::setVariable(const PooledString::Ref &name, DerpObject::Ref data) {
 
         // TODO: Check total visible variable count to make sure we
         // don't go over some arbitrary limit.
@@ -54,7 +60,7 @@ namespace ExPop {
         variables[name] = data;
     }
 
-    DerpObject::Ref DerpContext::getVariable(const std::string &name) {
+    DerpObject::Ref DerpContext::getVariable(const PooledString::Ref &name) {
 
         if(!variables.count(name)) {
             if(parent) {
@@ -67,7 +73,7 @@ namespace ExPop {
         return variables[name];
     }
 
-    DerpObject::Ref *DerpContext::getVariablePtr(const std::string &name, bool noRecurse) {
+    DerpObject::Ref *DerpContext::getVariablePtr(const PooledString::Ref &name, bool noRecurse) {
 
         if(getVariableProtected(name)) {
             return NULL;
@@ -84,11 +90,11 @@ namespace ExPop {
         return &(variables[name]);
     }
 
-    void DerpContext::unsetVariable(const std::string &name) {
+    void DerpContext::unsetVariable(const PooledString::Ref &name) {
         variables.erase(name);
     }
 
-    void DerpContext::setVariableProtected(const std::string &name, bool refProtected) {
+    void DerpContext::setVariableProtected(const PooledString::Ref &name, bool refProtected) {
         if(refProtected) {
             variablesProtected[name] = true;
         } else {
@@ -96,7 +102,7 @@ namespace ExPop {
         }
     }
 
-    bool DerpContext::getVariableProtected(const std::string &name) {
+    bool DerpContext::getVariableProtected(const PooledString::Ref &name) {
         return variablesProtected.count(name);
     }
 
@@ -107,7 +113,7 @@ namespace ExPop {
 
     void DerpContext::getVariableNames(std::vector<std::string> &out) {
 
-        for(std::map<std::string, DerpObject::Ref>::iterator i = variables.begin();
+        for(MapType_DerpObjectRef::iterator i = variables.begin();
             i != variables.end();
             i++) {
 

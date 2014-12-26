@@ -149,7 +149,10 @@ namespace ExPop {
                 return foundOb;
             }
 
-            FLAG_ERROR(derpSprintf("Cannot find variable \"%s\".", data->strVal->c_str()));
+            FLAG_ERROR(
+                derpSprintf(
+                    "Cannot find variable \"%s\".",
+                    std::string(variableLookupName).c_str()));
             return NULL;
 
         } else if(type == DERPEXEC_ASSIGNMENT) {
@@ -410,7 +413,7 @@ namespace ExPop {
                 FLAG_ERROR(
                     derpSprintf(
                         "Variable \"%s\" is protected and not valid for reference lookup.",
-                        data->strVal->c_str()));
+                        std::string(variableLookupName).c_str()));
                 return NULL;
             }
 
@@ -424,29 +427,23 @@ namespace ExPop {
             FLAG_ERROR(
                 derpSprintf(
                     "Bad variable \"%s\" for reference lookup.",
-                    data->strVal->c_str()));
+                    std::string(variableLookupName).c_str()));
             return NULL;
 
         } else if(type == DERPEXEC_VARIABLEDEC) {
 
-            // Make sure it's a string.
-            if(data->type != DERPTYPE_STRING) {
-                FLAG_ERROR("Non-string variable for variable declaration.");
-                return NULL;
-            }
-
             // Make sure it doesn't exist in the current context.
-            if(context->getVariablePtr(*data->strVal, true)) {
+            if(context->getVariablePtr(variableLookupName, true)) {
                 FLAG_ERROR(
                     derpSprintf(
                         "Variable \"%s\" already exists.",
-                        data->strVal->c_str()));
+                        std::string(variableLookupName).c_str()));
                 return NULL;
             }
 
             // Set it in the context.
             DerpObject::Ref newOb = vm->makeObject();
-            context->setVariable(*data->strVal, newOb);
+            context->setVariable(variableLookupName, newOb);
             return context->getVariablePtr(variableLookupName);
 
         } else if(type == DERPEXEC_INDEX) {

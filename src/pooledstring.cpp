@@ -63,12 +63,23 @@ namespace ExPop {
     void PooledString::Ref::removeRef(void) {
 
         if(realString) {
+
             assert(realString->refCount);
             realString->refCount--;
 
             if(!realString->refCount) {
-                // Last reference. Purge it from the pool.
-                realString->pool->removeString(realString->str);
+
+                // Last reference.
+                if(realString->pool) {
+
+                    // Purge it from the pool.
+                    realString->pool->removeString(realString->str);
+
+                } else {
+
+                    // No pool left. Delete the string itself.
+                    delete realString;
+                }
             }
         }
 
@@ -122,11 +133,16 @@ namespace ExPop {
 
     StringPool::~StringPool(void) {
 
+        // for(std::map<std::string, PooledString *>::iterator i = stringMap.begin(); i != stringMap.end(); i++) {
+        //     cerr << "StringMap deletion with string referenced: " << (*i).first << endl;
+        // }
+        // assert(!stringMap.size());
+
+        // Orphan remaining strings.
         for(std::map<std::string, PooledString *>::iterator i = stringMap.begin(); i != stringMap.end(); i++) {
-            cerr << "StringMap deletion with string referenced: " << (*i).first << endl;
+            (*i).second->pool = NULL;
         }
 
-        assert(!stringMap.size());
     }
 
     PooledString::Ref StringPool::getOrAdd(const std::string &str) {

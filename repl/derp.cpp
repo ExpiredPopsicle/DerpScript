@@ -119,11 +119,15 @@ void initVM(DerpVM &vm)
 
     DerpObject::Ref inFuncOb = vm.makeObject();
     inFuncOb->setExternalFunction(inFunc);
-    vm.getGlobalContext()->setVariable("in", inFuncOb);
+    vm.getGlobalContext()->setVariable(
+        vm.getVariablenameRef("in"), // FIXME: Make it so we don't have to get reference explicitly.
+        inFuncOb);
 
     DerpObject::Ref outFuncOb = vm.makeObject();
     outFuncOb->setExternalFunction(outFunc);
-    vm.getGlobalContext()->setVariable("out", outFuncOb);
+    vm.getGlobalContext()->setVariable(
+        vm.getVariablenameRef("out"), // FIXME: Make it so we don't have to get reference explicitly.
+        outFuncOb);
 
     // // If we're running untrusted code, set an execution limit so it
     // // can't just loop forever.

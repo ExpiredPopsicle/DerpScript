@@ -47,6 +47,7 @@ namespace ExPop {
     // ----------------------------------------------------------------------
 
   #define GARBAGECOLLECT_MIN_THRESHOLD 2048
+  // #define GARBAGECOLLECT_MIN_THRESHOLD 2
 
     DerpVM::DerpVM(void) : globalContext(&internalContext), internalContext(this) {
         lastGCPass = 0;
@@ -194,9 +195,10 @@ namespace ExPop {
         // Mark all objects with external references, and all
         // functions will positive call counts.
         for(unsigned int i = 0; i < gcObjects.size(); i++) {
-            if(gcObjects[i]->externalRefCount > 1) {
+            if(gcObjects[i]->externalRefCount > 1 || !gcObjects[i]->getGarbageCollectible()) {
 
-                // Object has external references. Mark it.
+                // Object has external references or is not GCable.
+                // Mark it.
                 gcObjects[i]->markGCPass(lastGCPass);
 
             } else if(gcObjects[i]->type == DERPTYPE_FUNCTION) {

@@ -31,10 +31,14 @@
 
 #pragma once
 
+#if __cplusplus > 199711L
+#include <unordered_map>
+#endif
 #include <map>
 #include <string>
 
 #include "derpobject.h"
+#include "pooledstring.h"
 
 namespace ExPop {
 
@@ -49,24 +53,24 @@ namespace ExPop {
         DerpContext(DerpContext *parent);
 
         /// Set (and create if needed) a variable to some DerpObject.
-        void setVariable(const std::string &name, DerpObject::Ref data);
+        void setVariable(const PooledString::Ref &name, DerpObject::Ref data);
 
         /// Clear out a variable. Doesn't clear protected status.
-        void unsetVariable(const std::string &name);
+        void unsetVariable(const PooledString::Ref &name);
 
         /// Get a variable by name. Will recurse if necessary to the
         /// parent context.
-        DerpObject::Ref getVariable(const std::string &name);
+        DerpObject::Ref getVariable(const PooledString::Ref &name);
 
         /// Set a variable to protected (or unprotected). Protected means
         /// that the reference cannot be reassigned. NOTE: Protected
         /// variables can be modified. They just can't be pointed to
         /// anything else. Use with const stuff to make them unmodifyable
         /// by scripts.
-        void setVariableProtected(const std::string &name, bool refProtected);
+        void setVariableProtected(const PooledString::Ref &name, bool refProtected);
 
         /// Get protected flag for a variable.
-        bool getVariableProtected(const std::string &name);
+        bool getVariableProtected(const PooledString::Ref &name);
 
         /// Clear all variables and protected status.
         void clearAllVariables(void);
@@ -81,7 +85,7 @@ namespace ExPop {
         // guaranteed to be valid immediately after the call to this
         // function!
         DerpObject::Ref *getVariablePtr(
-            const std::string &name,
+            const PooledString::Ref &name,
             bool noRecurse = false);
 
         friend class DerpObject;    // For getVariablePtr().
@@ -93,8 +97,17 @@ namespace ExPop {
         // variable lookup by a lot. (Variable lookup is the second
         // bottleneck after GC performance!) Also, make the key type
         // PooledString!
-        std::map<std::string, DerpObject::Ref> variables;
-        std::map<std::string, bool> variablesProtected;
+
+      #if __cplusplus > 199711L && DERPSCRIPT_USE_UNORDERED_MAP
+        typedef std::unordered_map<PooledString::Ref, DerpObject::Ref> MapType_DerpObjectRef;
+        typedef std::unordered_map<PooledString::Ref, bool> MapType_bool;
+      #else
+        typedef std::map<PooledString::Ref, DerpObject::Ref> MapType_DerpObjectRef;
+        typedef std::map<PooledString::Ref, bool> MapType_bool;
+      #endif
+
+        MapType_DerpObjectRef variables;
+        MapType_bool variablesProtected;
 
         DerpVM *vm;
 

@@ -60,6 +60,18 @@ namespace ExPop {
             ~Ref(void);
             Ref &operator=(const Ref &ref);
 
+            bool operator<(const Ref &ref) const {
+                return realString < ref.realString;
+            }
+
+            bool operator==(const Ref &ref) const {
+                return realString == ref.realString;
+            }
+
+            inline size_t hash(void) const {
+                return size_t(realString);
+            }
+
             /// Remove this reference and set the string pointer to
             /// NULL.
             void clear(void);
@@ -115,3 +127,16 @@ namespace ExPop {
         friend class PooledString;
     };
 }
+
+#if __cplusplus > 199711L
+namespace std {
+    template<>
+    struct hash<ExPop::PooledString::Ref>
+    {
+        size_t operator()(const ExPop::PooledString::Ref &ref) const {
+            return ref.hash();
+        }
+    };
+}
+#endif
+
