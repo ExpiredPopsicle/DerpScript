@@ -519,9 +519,6 @@ namespace ExPop {
             // The VM keeps one reference counter. This is to lazily clean
             // up refs after the VM has shutdown.
 
-            // FIXME: This won't work with functions! Nothing will hold a
-            // reference to any literal values.
-
             // Account for VM itself owning a reference.
             if(ob->externalRefCount <= 1 && ob->getGarbageCollectible()) {
                 assert(
@@ -611,6 +608,7 @@ namespace ExPop {
     }
 
     void DerpObject::setGarbageCollectible(bool garbageCollectible) {
+        assert(this->garbageCollectible != garbageCollectible);
         this->garbageCollectible = garbageCollectible;
     }
 

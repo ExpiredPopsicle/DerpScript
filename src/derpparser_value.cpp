@@ -131,8 +131,6 @@ namespace ExPop {
             // decided what the literalData is.
             assert(literalData);
 
-            literalData->setGarbageCollectible(false);
-
             ret = new DerpExecNode(
                 vm,
                 derpSafeLineNumber(tokens, i),

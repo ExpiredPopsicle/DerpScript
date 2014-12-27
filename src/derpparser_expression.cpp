@@ -70,21 +70,11 @@ namespace ExPop {
                     case '.': {
                         i++; // Skip '.'.
 
-                        ret->setType(DERPEXEC_INDEX);
+                        // Make a literal node to act as the index
+                        // value.
 
-                        DerpExecNode *lookupNameNode = new DerpExecNode(
-                            vm,
-                            derpSafeLineNumber(tokens, i),
-                            derpSafeFileName(tokens, i));
                         DerpObject::Ref lookupNameOb = vm->makeObject();
-
                         lookupNameOb->setConst(true);
-                        lookupNameNode->setType(DERPEXEC_LITERAL);
-                        lookupNameNode->setData(lookupNameOb.getPtr());
-
-                        ret->children.push_back(NULL);
-                        ret->children.push_back(lookupNameNode);
-
                         if(TOKENS_LEFT() && TOKEN_TYPE(i) == DERPTOKEN_SYMBOL) {
                             lookupNameOb->setString(tokens[i]->str);
                         } else {
@@ -98,6 +88,18 @@ namespace ExPop {
                             errorState.addError(
                                 derpSprintf("Expected a symbol after \'.\'."));
                         }
+
+                        DerpExecNode *lookupNameNode = new DerpExecNode(
+                            vm,
+                            derpSafeLineNumber(tokens, i),
+                            derpSafeFileName(tokens, i));
+                        lookupNameNode->setType(DERPEXEC_LITERAL);
+                        lookupNameNode->setData(lookupNameOb.getPtr());
+
+                        // Make this node an index-into node.
+                        ret->setType(DERPEXEC_INDEX);
+                        ret->children.push_back(NULL);
+                        ret->children.push_back(lookupNameNode);
 
                     } break;
 

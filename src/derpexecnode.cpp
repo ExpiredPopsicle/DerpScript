@@ -56,6 +56,7 @@ namespace ExPop {
         }
 
         if(data) {
+            assert(!data->getGarbageCollectible());
             data->setGarbageCollectible(true);
         }
     }
@@ -529,7 +530,7 @@ namespace ExPop {
         }
 
         if(data) {
-            ret->data = data->copy();
+            ret->setData(data->copy());
         }
 
         ret->variableLookupName = variableLookupName;
@@ -570,15 +571,18 @@ namespace ExPop {
     void DerpExecNode::setData(DerpObject *data) {
 
         // Release un-collectible status from the old data.
-        if(data) {
-            data->setGarbageCollectible(true);
+        if(this->data) {
+            this->data->setGarbageCollectible(true);
         }
 
         // Take over the new data. Make sure nothing else has an
         // exclusive ownership of it.
         this->data = data;
-        assert(data->getGarbageCollectible() == true);
-        data->setGarbageCollectible(false);
+
+        if(data) {
+            assert(data->getGarbageCollectible() == true);
+            data->setGarbageCollectible(false);
+        }
     }
 
     DerpObject *DerpExecNode::getData(void) {

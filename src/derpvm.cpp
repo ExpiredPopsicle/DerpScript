@@ -47,7 +47,6 @@ namespace ExPop {
     // ----------------------------------------------------------------------
 
   #define GARBAGECOLLECT_MIN_THRESHOLD 2048
-  // #define GARBAGECOLLECT_MIN_THRESHOLD 2
 
     DerpVM::DerpVM(void) :
         internalContext(this),
