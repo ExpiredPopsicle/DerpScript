@@ -40,7 +40,7 @@
 #include "derpobject.h"
 #include "pooledstring.h"
 
-namespace ExPop {
+namespace DerpScript {
 
     class DerpVM;
 

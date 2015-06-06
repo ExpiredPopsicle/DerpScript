@@ -41,7 +41,7 @@ using namespace std;
 #include "derpparser.h"
 #include "derpconfig.h"
 
-namespace ExPop {
+namespace DerpScript {
 
     // ----------------------------------------------------------------------
     //  Built-in callbacks

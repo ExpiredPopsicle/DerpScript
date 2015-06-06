@@ -32,7 +32,7 @@
 #include "derpparser_internal.h"
 using namespace std;
 
-namespace ExPop {
+namespace DerpScript {
 
     std::string getStringForNodeType(DerpExecNodeType type) {
       #define DT(x) { if(type == x) return #x; }

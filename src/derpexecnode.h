@@ -39,7 +39,7 @@
 #include "derperror_internal.h"
 #include "pooledstring.h"
 
-namespace ExPop {
+namespace DerpScript {
 
     // This should probably all be considered internal.
 

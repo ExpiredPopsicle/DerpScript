@@ -1,11 +1,7 @@
 #pragma once
 
-namespace ExPop
+namespace DerpScript
 {
-
-    // TODO: Make a consistent prefix for this stuff (str vs
-    // string). Possibly toss it into a namespace under ExPop.
-
     /// Return true if the character is whitespace. False otherwise.
     bool isWhiteSpace(char c);
 

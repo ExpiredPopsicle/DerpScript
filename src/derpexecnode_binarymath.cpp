@@ -34,7 +34,7 @@
 #include "derpexecnode_internal.h"
 using namespace std;
 
-namespace ExPop {
+namespace DerpScript {
 
     DerpObject::Ref DerpExecNode::eval_binaryMathOp(
         DerpContext *context,

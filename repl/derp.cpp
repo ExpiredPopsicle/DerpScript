@@ -41,7 +41,7 @@
 using namespace std;
 
 #include <derpscript.h>
-using namespace ExPop;
+using namespace DerpScript;
 
 DerpObject::Ref inFunc(DerpObject::ExternalFuncData &data) {
     ostringstream outStr;

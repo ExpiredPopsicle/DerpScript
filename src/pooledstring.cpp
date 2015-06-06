@@ -36,7 +36,7 @@
 #include "pooledstring.h"
 using namespace std;
 
-namespace ExPop {
+namespace DerpScript {
 
     // ----------------------------------------------------------------------
     //  PooledString::Ref

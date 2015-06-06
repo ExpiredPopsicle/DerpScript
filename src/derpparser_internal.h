@@ -43,7 +43,7 @@
 #include "derpvm.h"
 #include "pooledstring.h"
 
-namespace ExPop {
+namespace DerpScript {
 
     // ----------------------------------------------------------------------
     //  Some #defines for things that keep popping up

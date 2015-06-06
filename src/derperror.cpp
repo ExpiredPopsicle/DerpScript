@@ -41,7 +41,7 @@ using namespace std;
 #include "derplexer.h"
 #include "derperror.h"
 
-namespace ExPop {
+namespace DerpScript {
 
     std::string derpSprintf(const char *format, ...) {
 

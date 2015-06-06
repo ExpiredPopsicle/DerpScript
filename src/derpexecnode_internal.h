@@ -42,7 +42,7 @@
 #include "derpobject.h"
 #include "pooledstring.h"
 
-namespace ExPop {
+namespace DerpScript {
 
   #define CHECK_CHILDREN(x) if(children.size() != x) {                  \
         errorState.setFileAndLine(fileName, lineNumber);                \

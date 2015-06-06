@@ -34,7 +34,7 @@
 #include <string>
 #include <vector>
 
-namespace ExPop {
+namespace DerpScript {
 
     class DerpErrorState;
 

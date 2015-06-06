@@ -34,7 +34,7 @@
 #include <vector>
 #include <string>
 
-namespace ExPop {
+namespace DerpScript {
 
     class DerpExecNode;
     class DerpVM;

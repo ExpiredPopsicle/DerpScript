@@ -36,7 +36,7 @@
 #include <sstream>
 #include <map>
 
-namespace ExPop {
+namespace DerpScript {
 
     /// Basic data types.
     enum DerpBasicType {

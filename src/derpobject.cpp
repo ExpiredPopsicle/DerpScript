@@ -39,7 +39,7 @@ using namespace std;
 #include "derpexecnode.h"
 #include "derpconfig.h"
 
-namespace ExPop {
+namespace DerpScript {
 
     bool DerpObjectCompare::operator()(const DerpObject::Ref &a, const DerpObject::Ref &b) const {
         // Look closely. It's not a pointer comparison. It's just

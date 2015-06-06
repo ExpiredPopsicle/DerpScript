@@ -38,7 +38,7 @@
 #include "derperror.h"
 #include "pooledstring.h"
 
-namespace ExPop {
+namespace DerpScript {
 
     /// DerpVM represents the whole state of a scripting system. It
     /// can be directly instantiated, and most other public-facing

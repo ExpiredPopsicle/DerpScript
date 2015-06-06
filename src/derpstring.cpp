@@ -1,6 +1,6 @@
+#include <string>
 
-
-namespace ExPop
+namespace DerpScript
 {
 
     bool strStartsWith(const std::string &needle, const std::string &haystack) {

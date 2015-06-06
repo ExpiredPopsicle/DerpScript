@@ -31,7 +31,7 @@
 
 #pragma once
 
-namespace ExPop {
+namespace DerpScript {
 
     const unsigned int DERP_MAX_TOKEN_LENGTH = 1024;
     const unsigned int DERP_MAX_STRING_LENGTH = 1024;

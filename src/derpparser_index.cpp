@@ -32,7 +32,7 @@
 #include "derpparser_internal.h"
 using namespace std;
 
-namespace ExPop {
+namespace DerpScript {
 
     // Name is slight misnomer. Actually only parses starting at the
     // open parenthesis.

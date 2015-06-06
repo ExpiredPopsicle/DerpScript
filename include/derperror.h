@@ -37,7 +37,7 @@
 
 #include "pooledstring.h"
 
-namespace ExPop {
+namespace DerpScript {
 
     /// DerpErrorState handles errors both internally and exterally.
     /// If you're in a C++ function that was called from a piece of

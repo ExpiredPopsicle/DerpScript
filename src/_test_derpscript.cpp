@@ -39,7 +39,7 @@ using namespace std;
 
 #include "derpobject.h"
 #include "derpvm.h"
-using namespace ExPop;
+using namespace DerpScript;
 
 DerpObject::Ref testExternalFunc(
     DerpObject::ExternalFuncData &data) {

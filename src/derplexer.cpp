@@ -42,7 +42,7 @@ using namespace std;
 #include "derpconfig.h"
 #include "derplexer.h"
 
-namespace ExPop {
+namespace DerpScript {
 
     // FIXME: This is from Lily Engine Utils. Get rid of this function
     // and use that version once everything is set up.

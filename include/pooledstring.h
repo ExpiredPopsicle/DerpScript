@@ -33,7 +33,7 @@
 
 #include <string>
 
-namespace ExPop {
+namespace DerpScript {
 
     class StringPool;
 
@@ -131,9 +131,9 @@ namespace ExPop {
 #if __cplusplus > 199711L
 namespace std {
     template<>
-    struct hash<ExPop::PooledString::Ref>
+    struct hash<DerpScript::PooledString::Ref>
     {
-        size_t operator()(const ExPop::PooledString::Ref &ref) const {
+        size_t operator()(const DerpScript::PooledString::Ref &ref) const {
             return ref.hash();
         }
     };

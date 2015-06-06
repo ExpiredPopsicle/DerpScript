@@ -35,7 +35,7 @@
 #include <cassert>
 #include <iostream>
 
-namespace ExPop {
+namespace DerpScript {
 
     DerpContext::DerpContext(DerpVM *vm)
       #if __cplusplus > 199711L && DERPSCRIPT_USE_UNORDERED_MAP

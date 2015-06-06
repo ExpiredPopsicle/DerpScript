@@ -40,7 +40,7 @@ using namespace std;
 #include "derpconfig.h"
 #include "derpvm_builtinfunctions.h"
 
-namespace ExPop {
+namespace DerpScript {
 
     // ----------------------------------------------------------------------
     //  DerpVM implementation

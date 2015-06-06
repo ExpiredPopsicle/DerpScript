@@ -31,7 +31,7 @@
 
 #pragma once
 
-namespace ExPop {
+namespace DerpScript {
 
     class DerpToken;
 

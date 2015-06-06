@@ -32,7 +32,7 @@
 #include "derpexecnode_internal.h"
 using namespace std;
 
-namespace ExPop {
+namespace DerpScript {
 
     DerpExecNode::DerpExecNode(
         DerpVM *vm,

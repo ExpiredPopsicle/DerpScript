@@ -32,7 +32,7 @@
 #include "derpparser_internal.h"
 using namespace std;
 
-namespace ExPop {
+namespace DerpScript {
 
     DerpExecNode *parseBlock(
         DerpVM *vm, std::vector<DerpToken*> &tokens,

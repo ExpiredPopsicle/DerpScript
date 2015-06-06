@@ -32,7 +32,7 @@
 #include "derpparser_internal.h"
 using namespace std;
 
-namespace ExPop {
+namespace DerpScript {
 
     bool derpParser_expectAndIncrement(
         DerpTokenType type, std::vector<DerpToken*> &tokens,
