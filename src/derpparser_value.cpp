@@ -129,6 +129,16 @@ namespace DerpScript {
             // If we've made it here, we need to construct a new
             // DerpExecNode for the literal value. And we MUST have
             // decided what the literalData is.
+
+            // FIXME: I don't know how this comes to be, but it looks
+            // like if you leave end parenthesis off a complicated
+            // return expression it could show up:
+            // For Example: return imageOp.swizzle(imageOp.gaussianBlur(blackMask, 4.0/float(size), 0, 0, 0)
+            if(!literalData) {
+                errorState->addError("Internal parser error.");
+                return NULL;
+            }
+
             assert(literalData);
 
             ret = new DerpExecNode(
