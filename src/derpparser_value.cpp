@@ -135,7 +135,7 @@ namespace DerpScript {
             // return expression it could show up:
             // For Example: return imageOp.swizzle(imageOp.gaussianBlur(blackMask, 4.0/float(size), 0, 0, 0)
             if(!literalData) {
-                errorState->addError("Internal parser error.");
+                errorState.addError("Internal parser error.");
                 return NULL;
             }
 
