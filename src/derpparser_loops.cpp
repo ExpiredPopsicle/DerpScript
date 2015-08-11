@@ -244,8 +244,8 @@ namespace DerpScript {
             vm, lineNumber, fileName);
         ret->setType(DERPEXEC_LOOP);
         ret->children.push_back(loopAction);
-        ret->children.push_back(NULL);
         ret->children.push_back(conditionExpression);
+        ret->children.push_back(NULL);
         ret->children.push_back(initExpression);
         ret->children.push_back(iterateExpression);
 

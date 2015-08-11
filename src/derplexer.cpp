@@ -318,6 +318,15 @@ namespace DerpScript {
                     i++;
                 }
 
+            } else if(str[i] == '#') {
+
+                // Shell-script style comment. Just throw it away too.
+                i++;
+                while(i < str.size()) {
+                    if(str[i] == '\n') break;
+                    i++;
+                }
+
             } else if(str[i] == '\"') {
 
                 // Found a literal quoted string.
